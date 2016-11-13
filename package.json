@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/sainthkh/morningglory-node/issues"
   },
-  "homepage": "https://github.com/sainthkh/morningglory-node#readme"
+  "homepage": "https://github.com/sainthkh/morningglory-node#readme",
+  "dependencies": {
+    "js-yaml": "^3.7.0",
+    "sequelize": "^3.25.0"
+  }
 }
