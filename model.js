@@ -2,7 +2,7 @@ const fs = require('fs');
 const jsyaml    = require('js-yaml');
 const Sequelize = require("sequelize");
 
-function connectDB () {
+function connectDB() {
 	return new Promise((resolve, reject) => {
 		fs.readFile('db.yaml', 'utf8', (err, data) => {
 			if (err) reject(err);
@@ -28,11 +28,16 @@ function connectDB () {
 			category: Sequelize.TEXT
 		})
 
-		return {
-			Post: post.sync(),
-			Series: series.sync() 
+		db = {
+			Post: post,
+			Series: series 
 		}
+
+		module.exports.PostDB = post.sync()
+		module.exports.SeriesDB = series.sync()
+
+		return db
 	});
 }
 
-module.exports = connectDB()
+connectDB()
