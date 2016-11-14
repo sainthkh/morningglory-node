@@ -15,6 +15,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json())
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use(session({
 	store: new RedisStore({
