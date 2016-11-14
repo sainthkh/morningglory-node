@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>{{choose title 'WiseInit Korean | Learn & Apply Your Korean Here !'}}</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	
+	<link rel='stylesheet' id='font-awesome-css'  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" type='text/css' media='all' />
+	<link rel='stylesheet' id='wiseinit-style' href="/public/style.css" type="text/css" media='all' />
+	
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body class="">
+<header class="site-header">
+	<div class="text-center">
+		<a href="/" title="logo"><img src="/public/image/logo.png" alt="logo" /></a>
+	</div>
+</header>
+<div class="container navbar-wrap">
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+		</div>
+	</div>
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
+			{{#each categories}}
+				<li class="dropdown">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{title}} <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+					{{#each series}}
+						<li><a href="/series/{{slug}}">{{name}}</a></li>	
+					{{/each}}
+					</ul>
+				</li>	
+			{{/each}}
+		</ul>
+	</div>
+</nav>
+</div>
+<div class="container site-main-container">
+	{{{body}}}
+</div>
+<footer>
+	<div class="sns-list">
+		<ul>
+			<li id="sl-facebook"><a href="https://www.facebook.com/wiseinitkorean" target="_black"><i class="fa fa-facebook"></i></a>
+			<li id="sl-twitter"><a href="https://twitter.com/wiseinit" target="_black"><i class="fa fa-twitter"></i></a>
+			<li id="sl-youtube"><a href="https://www.youtube.com/user/sainthkh" target="_black"><i class="fa fa-youtube"></i></a>
+			<li id="sl-podcast"><a href="http://wiseinit.podbean.com/" target="_black"><i class="fa fa-microphone"></i></a>
+			<li id="sl-RSS"><a href="{% url 'blog:post-rss' %}" target="_black"><i class="fa fa-rss"></i></a>
+		</ul>
+	</div>
+	<div class="footer-offers">
+	</div>
+	<nav class="bottom-nav footer">
+		<div class="container text-center">
+		<ul>
+			<li><a href="/about">About</a></li>
+			<li><a href="/privacy-policy">Privacy Policy</a></li>
+			<li><a href="/faq">FAQ</a></li>
+			<li><a href="/terms-of-service">Terms of Service</a></li>
+			<li><a href="/contact">Contact</a></li>
+		</ul>
+		</div>
+	</nav>
+</footer>
+</body>
+{{>footer}}
+</html>

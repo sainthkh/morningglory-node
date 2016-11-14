@@ -40,7 +40,7 @@ app.engine('.hbs', hbs.engine)
 app.set('view engine', '.hbs')
 
 //Init modules here
-require('./controller').init(app)
+require('./controllers').init(app)
 
 app.listen(3000, function () {
 	console.log('Example app listening on port 3000!');
