@@ -1,3 +1,4 @@
+const querystring = require('querystring')
 const express = require('express')
 const passport = require('passport');
 const _ = require('underscore')
@@ -47,6 +48,27 @@ router.get('/logout', (req, res) => {
 	req.logout()
 	res.redirect('/')
 })
+
+//single
+router.get('/:slug', (req, res) => {
+	Model.PostDB.then(Post => {
+		return Post.find({ where: {slug: normalize_slug(req.params.slug)}})
+		.then(post => {
+			res.render('single', {
+				page_title: post.title,
+				title: post.title,
+				content: post.content,
+			})
+		})
+	})
+})
+
+function normalize_slug(slug) {
+	if (!slug.includes('%')) {
+		slug = querystring.escape(slug)
+	}
+	return slug.toLowerCase()
+}
 
 module.exports = router
 
