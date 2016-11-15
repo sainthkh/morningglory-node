@@ -1,4 +1,5 @@
 const express = require('express')
+const passport = require('passport');
 const _ = require('underscore')
 
 const Model = require('../model')
@@ -35,7 +36,7 @@ router.get('/login', (req, res) => {
 
 router.post('/login', (req, res, next) => {
 	passport.authenticate('local', {
-		successRedirect: '/',
+		successRedirect: '/admin',
 		failureRedirect: '/login',
 		failureFlash: true
 	})(req, res, next)
