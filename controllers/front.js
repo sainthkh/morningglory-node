@@ -30,6 +30,7 @@ router.use((req, res, next) => {
 	})
 })
 
+//login
 router.get('/login', (req, res) => {
 	res.render('login')
 })
