@@ -29,7 +29,7 @@ connectMongo()
 						return Post.create({
 							slug: page.slug,
 							title: page.title,
-							content: page.content,
+							content: clean_content(page.content),
 							series_slug: null,
 							published_date: page.published_date,
 							last_modified_date: page.last_modified_date
@@ -72,7 +72,7 @@ connectMongo()
 						return Post.create({
 							slug: post.slug,
 							title: post.title,
-							content: post.content,
+							content: clean_content(post.content),
 							series_slug: post.series_slug,
 							published_date: post.published_date,
 							last_modified_date: post.last_modified_date
@@ -89,3 +89,9 @@ connectMongo()
 		}
 	])
 })
+
+function clean_content(content){
+	content = content.replace(/<<\/?.+>>/g, '')
+	content = content.replace(/\(\$\s*(.+)\s*\$\)/g, '![$1](/images/$1)')
+	return content
+}
