@@ -32,7 +32,11 @@ var hbs = exphbs.create({
 	layoutsDir: path.join(__dirname, 'views'),
 	partialsDir: path.join(__dirname, 'views'),
 	helpers: {
-		choose: (a, b) => { return a ? a:b }
+		choose: (a, b) => { return a ? a:b },
+		ifEqual: function(a, b, options) { 
+			if (a === b) return options.fn(this)
+			else return options.inverse(this) 
+		}
 	}
 })
 
