@@ -57,7 +57,7 @@ router.get('/:slug', (req, res) => {
 			res.render('single', {
 				page_title: post.title,
 				title: post.title,
-				content: post.content,
+				content: process_content(post.content),
 			})
 		})
 	})
@@ -68,6 +68,15 @@ function normalize_slug(slug) {
 		slug = querystring.escape(slug)
 	}
 	return slug.toLowerCase()
+}
+
+function process_content(content) {
+	var md = require('markdown-it')({
+		html: true,
+		breaks: true,
+	})
+
+	return md.render(content)
 }
 
 module.exports = router
