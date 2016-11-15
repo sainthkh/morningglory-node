@@ -57,7 +57,7 @@ router.get('/:slug', (req, res) => {
 			res.render('single', {
 				page_title: post.title,
 				title: post.title,
-				content: process_content(post.content),
+				content: markdown(post.content),
 			})
 		})
 	})
@@ -70,13 +70,43 @@ function normalize_slug(slug) {
 	return slug.toLowerCase()
 }
 
-function process_content(content) {
-	var md = require('markdown-it')({
-		html: true,
-		breaks: true,
-	})
+const md = require('markdown-it')({
+	html: true,
+	breaks: true,
+})
 
+function markdown(content) {
 	return md.render(content)
+}
+
+//series
+router.get(/^\/series\/([^\\\/]+?)(\/page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req, res) => {
+	var page = normalize_page(req.params[1]) 
+	Model.PostDB.then(Post => {
+		return Post.findAll({
+			where: {series_slug: req.params[0]},
+			offset: (page-1)*5,
+			limit: page*5,
+		})
+		.then(posts => {
+			posts = _.map(posts, function(post){
+				var content = post.content.replace(/<.*?>/g, '')
+				content = content.replace(/# Korean Only/g, '')
+				content = content.replace(/# With English( Translations)?/g, '')
+				content = content.split(' ').splice(0, 60).join(' ')
+				post.content = markdown(content) 
+				return post
+			})
+			res.render('series', {
+				posts: posts,
+			})
+		})
+	})
+})
+
+function normalize_page(page) {
+	if (!page) return 1
+	return page
 }
 
 module.exports = router

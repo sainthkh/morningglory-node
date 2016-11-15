@@ -1,0 +1,8 @@
+<div class="col-md-offset-2 col-md-8">
+{{#each posts as |post key|}}
+	{{>post_summary post}}
+{{/each}}
+<div class="text-center">
+{{>pagination page_context}}
+</div>
+</div>
