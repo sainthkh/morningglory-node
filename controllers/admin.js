@@ -64,6 +64,5 @@ function slugify(title) {
 	slug = slug.replace(/\-\-+/g, '-') // multiple '-' with single '-'
 	slug = slug.replace(/^-+/g, '') // Trim - in the front
 	slug = slug.replace(/-+$/g, '') // Trim - in the back
-	console.log(slug)
 	return slug.toLowerCase()
 }
