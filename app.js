@@ -17,6 +17,7 @@ app.use(bodyparser.urlencoded({ extended: false }))
 app.use(bodyparser.json())
 app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use(session({
 	store: new RedisStore({
