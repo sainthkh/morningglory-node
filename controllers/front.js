@@ -49,6 +49,36 @@ router.get('/logout', (req, res) => {
 	res.redirect('/')
 })
 
+router.get(/^\/(?:page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req, res) => {
+	var page = normalize_page(req.params[0])
+	Model.PostDB.then(Post => {
+		Post.count().then(count => {
+			res.locals.pagination = pagination(Math.ceil(count/5), page)
+			res.locals.pagination.base_url = "/page/"
+		})
+	})
+	Model.PostDB.then(Post => {
+		return Post.findAll({
+			offset: (page-1)*5,
+			limit: 5,
+			order: 'published_date DESC',
+		})
+		.then(posts => {
+			posts = _.map(posts, function(post){
+				var content = post.content.replace(/<.*?>/g, '')
+				content = content.replace(/# Korean Only/g, '')
+				content = content.replace(/# With English( Translations)?/g, '')
+				content = content.split(' ').splice(0, 60).join(' ')
+				post.content = markdown(content) 
+				return post
+			})
+			res.render('index', {
+				posts: posts,
+			})
+		})
+	})
+})
+
 //single
 router.get('/:slug', (req, res) => {
 	Model.PostDB.then(Post => {
