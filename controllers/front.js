@@ -90,7 +90,6 @@ router.get(/^\/series\/([^\\\/]+?)(?:\/page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req,
 			res.locals.pagination.base_url = "/series/" + slug + "/page/" 
 		})
 	})
-	console.log('page ' + page)
 	Model.PostDB.then(Post => {
 		return Post.findAll({
 			where: {series_slug: slug},
