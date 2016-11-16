@@ -36,7 +36,7 @@ var hbs = exphbs.create({
 	helpers: {
 		choose: (a, b) => { return a ? a:b },
 		ifEqual: function(a, b, options) { 
-			if (a === b) return options.fn(this)
+			if (a == b) return options.fn(this)
 			else return options.inverse(this) 
 		}
 	}
