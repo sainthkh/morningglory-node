@@ -1,0 +1,21 @@
+<nav>
+	<ul class="pagination">
+	{{#if previous}}
+		<li>
+			<a href="{{base_url}}{{previous}}" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+	{{/if}}
+	{{#each page_numbers as |n|}}
+		<li {{#ifEqual n ../current}}class="active"{{/ifEqual}}><a href="{{../base_url}}{{n}}">{{n}}</a></li>
+	{{/each}}
+	{{#if next_page }}
+		<li>
+			<a href="{{base_url}}{{next}}" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	{{/if}}
+	</ul>
+</nav>

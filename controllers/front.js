@@ -80,13 +80,22 @@ function markdown(content) {
 }
 
 //series
-router.get(/^\/series\/([^\\\/]+?)(\/page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req, res) => {
-	var page = normalize_page(req.params[1]) 
+router.get(/^\/series\/([^\\\/]+?)(?:\/page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req, res) => {
+	var page = normalize_page(req.params[1])
+	var slug = req.params[0]
+	Model.PostDB.then(Post => {
+		Post.count({ where: {series_slug: slug}})
+		.then(count => {
+			res.locals.pagination = pagination(Math.ceil(count/5), page)
+			res.locals.pagination.base_url = "/series/" + slug + "/page/" 
+		})
+	})
+	console.log('page ' + page)
 	Model.PostDB.then(Post => {
 		return Post.findAll({
-			where: {series_slug: req.params[0]},
+			where: {series_slug: slug},
 			offset: (page-1)*5,
-			limit: page*5,
+			limit: 5,
 		})
 		.then(posts => {
 			posts = _.map(posts, function(post){
@@ -107,6 +116,42 @@ router.get(/^\/series\/([^\\\/]+?)(\/page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req, r
 function normalize_page(page) {
 	if (!page) return 1
 	return page
+}
+
+function pagination(page_count, current_page) {
+	context = {}
+	context.current = current_page
+
+	var start_pn, end_pn; // pn = page_number
+	if (page_count <= 10) {
+		start_pn = 1
+		end_pn = page_count + 1
+	} else {
+		if (current_page < 6) {
+			context.next = 11
+			start_pn = 1
+			end_pn = 11
+		} else {
+			context.previous = current_page - 5
+
+			if (page_count > current_page + 5) {
+				context.next = current_page + 6
+				start_pn = current_page - 4
+				end_pn = current_page + 6
+			} else {
+				start_pn = current_page - 4
+				end_pn = current_page + 1
+			}
+		}
+	}
+
+	context.page_numbers = []
+
+	for(var i = start_pn; i < end_pn; i++) {
+		context.page_numbers.push(i)
+	}
+
+	return context
 }
 
 module.exports = router
