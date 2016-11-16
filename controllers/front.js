@@ -142,6 +142,19 @@ router.get(/^\/series\/([^\\\/]+?)(?:\/page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req,
 	})
 })
 
+//old series
+router.get(/^\/series\/([^\\\/]+?)\/list(?:\/page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req, res) => {
+	var page = normalize_page(req.params[1])
+	var slug = req.params[0]
+	
+	var url = ''
+	if(page == 1) {
+		res.redirect('/series/' + slug)
+	} else {
+		res.redirect('/series/' + slug + '/page/' + page)
+	}
+})
+
 function normalize_page(page) {
 	if (!page) return 1
 	return page
