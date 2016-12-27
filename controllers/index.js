@@ -11,8 +11,23 @@ exports.init = function(app) {
 
 	app.use('/admin', admin)
 	app.use('/', front)
+	app.use(errors)
 }
 
+// errors
+function errors(err, req, res, next) {
+	console.log('here')
+	if(err.status == 404) {
+		res.status(404)
+		res.render('error/404')
+	} else {
+		res.status(500)
+		console.log(err)
+		res.render('error/500')
+	}
+}
+
+//passport
 passport.serializeUser(function(user, done) {
 	done(null, user.id);
 });
