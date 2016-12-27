@@ -167,7 +167,9 @@ function normalize_page(page) {
 }
 
 function pagination(page_count, current_page) {
-	context = {}
+	page_count = parseInt(page_count)
+	current_page = parseInt(current_page)
+	var context = {}
 	context.current = current_page
 
 	var start_pn, end_pn; // pn = page_number

@@ -10,7 +10,7 @@
 	{{#each page_numbers as |n|}}
 		<li {{#ifEqual n ../current}}class="active"{{/ifEqual}}><a href="{{../base_url}}{{n}}">{{n}}</a></li>
 	{{/each}}
-	{{#if next_page }}
+	{{#if next}}
 		<li>
 			<a href="{{base_url}}{{next}}" aria-label="Next">
 				<span aria-hidden="true">&raquo;</span>
