@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>WiseInit Korean</title>
+        <link>http://wiseinit.com/</link>
+        <description>New posts of WiseInit Korean. </description>
+        <atom:link href="http://wiseinit.com/rss" rel="self"></atom:link>
+        <language>en-us</language>
+		<lastBuildDate>{{now}}</lastBuildDate>
+		{{#each posts}}
+        <item>
+			<title>{{title}}</title>
+			<link>http://wiseinit.com/{{slug}}</link>
+			<description>{{content}}</description>
+			<guid>http://wiseinit.com/{{slug}}</guid>
+        </item>
+		{{/each}}
+    </channel>
+</rss>

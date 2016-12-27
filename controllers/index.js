@@ -3,6 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const front = require('./front')
 const admin = require('./admin')
+const system = require('./system')
 const config = require('../config')
 
 exports.init = function(app) {
@@ -10,6 +11,7 @@ exports.init = function(app) {
 	app.use(passport.session());
 
 	app.use('/admin', admin)
+	app.use('/', system)
 	app.use('/', front)
 	app.use(errors)
 }
