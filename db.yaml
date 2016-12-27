@@ -1,6 +1,0 @@
-dbname: db
-username:
-password:
-params:
-    dialect: sqlite
-    storage: db.sqlite3
