@@ -67,6 +67,7 @@ router.get(/^\/(?:page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req, res) => {
 		.then(posts => {
 			posts = _.map(posts, function(post){
 				var content = post.content.replace(/<.*?>/g, '')
+				content = content.replace(/!\[.*\]\(.*\)/g, '')
 				content = content.replace(/# Korean Only/g, '')
 				content = content.replace(/# With English( Translations)?/g, '')
 				content = content.split(' ').splice(0, 60).join(' ')
