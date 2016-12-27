@@ -95,5 +95,6 @@ connectMongo()
 function clean_content(content){
 	content = content.replace(/<<\/?.+>>/g, '')
 	content = content.replace(/\(\$\s*(.+)\s*\$\)/g, '![$1](/images/$1)')
+	content = content.replace(/(#+)/g, '$1 ')
 	return content
 }
