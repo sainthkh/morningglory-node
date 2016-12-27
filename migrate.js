@@ -4,8 +4,10 @@ const MongoClient = require('mongodb').MongoClient;
 const async = require('async')
 const fs = require('fs')
 
-fs.unlinkSync('db.sqlite3')
-console.log('DB File deleted')
+if(fs.existsSync('db.sqlite3')) {
+	fs.unlinkSync('db.sqlite3')
+	console.log('DB File deleted')
+}
 
 var db;
 function connectMongo() {
