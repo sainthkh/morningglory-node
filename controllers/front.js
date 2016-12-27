@@ -49,6 +49,7 @@ router.get('/logout', (req, res) => {
 	res.redirect('/')
 })
 
+// index
 router.get(/^\/(?:page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req, res) => {
 	var page = normalize_page(req.params[0])
 	Model.PostDB.then(Post => {
@@ -80,7 +81,7 @@ router.get(/^\/(?:page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req, res) => {
 })
 
 //single
-router.get('/:slug', (req, res) => {
+router.get('/:slug', (req, res, next) => {
 	Model.PostDB.then(Post => {
 		return Post.find({ where: {slug: normalize_slug(req.params.slug)}})
 		.then(post => {
@@ -89,6 +90,10 @@ router.get('/:slug', (req, res) => {
 				title: post.title,
 				content: markdown(post.content),
 			})
+		})
+		.catch(err => {
+			err.status = 404
+			next(err)
 		})
 	})
 })
