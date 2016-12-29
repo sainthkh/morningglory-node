@@ -4,7 +4,7 @@ const exphbs = require('express-handlebars')
 const express = require('express');
 const bodyparser = require('body-parser')
 const session = require('express-session')
-const RedisStore = require('connect-redis')(session)
+const SQLiteStore = require('connect-sqlite3')(session);
 const favicon = require('serve-favicon')
 const config = require('./config')
 
@@ -22,9 +22,7 @@ if (app.get('env') === 'development') {
 }
 
 app.use(session({
-	store: new RedisStore({
-		url: 'redis://localhost:6379'
-	}),
+	store: new SQLiteStore,
 	secret: config.secret,
 	resave: false,
 	saveUninitialized: false
