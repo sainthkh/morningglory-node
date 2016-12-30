@@ -38,3 +38,4 @@ jspm_packages
 *.sqlite3
 config.js
 views/footer.hbs
+sessions.db
