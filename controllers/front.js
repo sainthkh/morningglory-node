@@ -128,7 +128,7 @@ router.get(/^\/series\/([^\\\/]+?)(?:\/page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req,
 	})
 	Model.PostDB.then(Post => {
 		return Post.findAll({
-			where: {series_slug: slug},
+			where: {series_slug: normalize_slug(slug)},
 			offset: (page-1)*5,
 			limit: 5,
 		})
