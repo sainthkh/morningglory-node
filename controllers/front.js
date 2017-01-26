@@ -120,7 +120,7 @@ router.get(/^\/series\/([^\\\/]+?)(?:\/page\/([^\\\/]+?))?(?:\/(?=$))?$/i, (req,
 	var page = normalize_page(req.params[1])
 	var slug = req.params[0]
 	Model.PostDB.then(Post => {
-		Post.count({ where: {series_slug: slug}})
+		Post.count({ where: {series_slug: normalize_slug(slug)}})
 		.then(count => {
 			res.locals.pagination = pagination(Math.ceil(count/5), page)
 			res.locals.pagination.base_url = "/series/" + slug + "/page/" 
